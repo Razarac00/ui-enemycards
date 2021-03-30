@@ -1,0 +1,50 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+name: UI-EnemyCards-$(date:yyyyMMdd)$(rev:.rr)
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: 'build'
+  condition: succeeded()
+  displayName: 'build-ui'
+  jobs:
+  - job:
+    condition: succeeded()
+    displayName: 'install and build'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+
+    - script: |
+        npm install -g @angular/cli
+        npm install
+        ng build --prod
+      displayName: 'npm install and build'
+
+- stage: 'test'
+  condition: succeeded()
+  displayName: 'test-ui'
+  jobs:
+  - job:
+    condition: succeeded()
+    displayName: 'test run'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '10.x'
+        displayName: 'Install Node.js testing'
+
+      - script: |
+          npm install -g @angular/cli
+          npm install
+          ng test 
+        displayName: 'npm install and test'
