@@ -1,6 +1,8 @@
-# UiEnemycards
+# Ui-Enemycards
+[![Build Status](https://dev.azure.com/822687/EnemyCards/_apis/build/status/Razarac00.ui-enemycards?branchName=main)](https://dev.azure.com/822687/EnemyCards/_build/latest?definitionId=6&branchName=main)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.7.
+Why? To display the ds1, ds2, ds3 boss data quickly and easily as fetched from the ws-enemycards web service.
 
 ## Development server
 
