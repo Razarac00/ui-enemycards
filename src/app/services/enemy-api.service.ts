@@ -32,10 +32,11 @@ export class EnemyApiService {
     );
   }
 
-  // getEnemy(name: string): Observable<Enemy> {
-  //   name = name.trim(); 
-  //   return this.wsEnemyURL$.pipe(
-  //     map((url) => this.http.get<Enemy>(url))
-  //   );
-  // }
+  getEnemy(name: string): Observable<Enemy> {
+    name = name.trim(); 
+
+    return this.wsEnemyURL$.pipe(
+      concatMap((url) => this.http.get<Enemy>(url + '/' + `${name}`))
+    );
+  }
 }
