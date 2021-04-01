@@ -1,6 +1,6 @@
 {
     "api": {
-      "ws-enemy": {
+      "wsenemy": {
         "base": "http://localhost:8081/",
         "uri": {
           "enemies": "api/enemies"
