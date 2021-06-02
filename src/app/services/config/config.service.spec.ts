@@ -2,8 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
+import { concatMap, map } from 'rxjs/operators';
 
 import { ConfigService } from './config.service';
+import { Observable } from 'rxjs';
+import { doesNotReject } from 'node:assert';
 
 describe('ConfigService', () => {
   let service: ConfigService;
@@ -11,6 +14,15 @@ describe('ConfigService', () => {
   let httpTestingController: HttpTestingController;
 
   const CONFIG = environment.config;
+  const configMock = {
+    api: {
+    wsenemy: {
+      base: "http://localhost:8081/",
+      uri: {
+        enemies: "api/enemies"
+      }
+    }
+  }}
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,14 +41,12 @@ describe('ConfigService', () => {
   it('should get the correct path', () => {
     let req: TestRequest;
 
-    let result$ = service.get();
-    
-    result$.pipe(
-      // expect(res.baseUrl).toEqual("http://localhost:8081/")
-    );
+    service.get().subscribe((res) => {
+      expect(res).toBe(configMock);
+    });
     
 
     req = httpTestingController.expectOne(CONFIG);
-    req.flush("");
+    req.flush(configMock);
   });
 });
