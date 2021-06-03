@@ -7,6 +7,8 @@ import { concatMap, map } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 import { Observable } from 'rxjs';
 import { doesNotReject } from 'node:assert';
+import { configMock } from 'src/app/mocks/mock-config';
+import { Config } from 'src/app/models/config.model';
 
 describe('ConfigService', () => {
   let service: ConfigService;
@@ -14,17 +16,8 @@ describe('ConfigService', () => {
   let httpTestingController: HttpTestingController;
 
   const CONFIG = environment.config;
-  const baseUrl = "http://localhost:8081/";
-  const enemyUri = "api/enemies";
-  const configMock = {
-    api: {
-    wsenemy: {
-      base: baseUrl,
-      uri: {
-        enemies: enemyUri
-      }
-    }
-  }}
+  const baseUrl = configMock.api.wsenemy.base;
+  const enemyUri = configMock.api.wsenemy.uri.enemies;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
