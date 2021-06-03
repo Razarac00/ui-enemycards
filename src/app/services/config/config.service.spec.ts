@@ -14,12 +14,14 @@ describe('ConfigService', () => {
   let httpTestingController: HttpTestingController;
 
   const CONFIG = environment.config;
+  const baseUrl = "http://localhost:8081/";
+  const enemyUri = "api/enemies";
   const configMock = {
     api: {
     wsenemy: {
-      base: "http://localhost:8081/",
+      base: baseUrl,
       uri: {
-        enemies: "api/enemies"
+        enemies: enemyUri
       }
     }
   }}
@@ -38,13 +40,14 @@ describe('ConfigService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get the correct path', () => {
+  it('should get the correct configuration', () => {
     let req: TestRequest;
 
     service.get().subscribe((res) => {
       expect(res).toBe(configMock);
+      expect(res.api.wsenemy.base).toEqual(baseUrl);
+      expect(res.api.wsenemy.uri.enemies).toEqual(enemyUri);
     });
-    
 
     req = httpTestingController.expectOne(CONFIG);
     req.flush(configMock);
