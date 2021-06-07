@@ -36,6 +36,8 @@ describe('EnemyApiService', () => {
     service.getAllEnemies(search, pageNumber, pageSize).subscribe((res) => {
       expect(res).toBeTruthy();
       expect(res).toBe(enemiesMock);
+      expect(res.pageSize).toEqual(pageSize);
+      expect(res.pageNumber).toEqual(pageNumber);
     }); 
     //  http://localhost:8081/api/enemies?search=G&pageNumber=0&pageSize=4
     req = httpTestingController.expectOne("http://localhost:test/api/enemies?search=&pageNumber=0&pageSize=4");
@@ -47,6 +49,7 @@ describe('EnemyApiService', () => {
     service.getEnemy(name).subscribe((res) => {
       expect(res).toBeTruthy();
       expect(res).toBe(enemyMock);
+      expect(res.name).toEqual(name.replace("-", " "));
     }); 
     //  http://localhost:8081/api/enemies/Bell-Gargoyle
     req = httpTestingController.expectOne("http://localhost:test/api/enemies/Bell-Gargoyle");
