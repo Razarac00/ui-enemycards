@@ -2,11 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
-import { concatMap, map } from 'rxjs/operators';
 
 import { ConfigService } from './config.service';
 import { Observable } from 'rxjs';
-import { doesNotReject } from 'node:assert';
 import { configMock } from 'src/app/mocks/mock-config';
 import { Config } from 'src/app/models/config.model';
 

@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { enemiesMock } from '../mocks/mock-enemies';
+import { configServiceMock } from '../mocks/mock-configservice';
 import { enemyMock } from '../mocks/mock-enemy';
+import { ConfigService } from './config/config.service';
 
 import { EnemyApiService } from './enemy-api.service';
 
@@ -15,7 +17,7 @@ describe('EnemyApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      //TODO: add a provider for the config service to mock the get method
+      providers: [{provide: ConfigService, useValue: configServiceMock}]
     });
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -36,18 +38,18 @@ describe('EnemyApiService', () => {
       expect(res).toBe(enemiesMock);
     }); 
     //  http://localhost:8081/api/enemies?search=G&pageNumber=0&pageSize=4
-    req = httpTestingController.expectOne("");
+    req = httpTestingController.expectOne("http://localhost:test/api/enemies?search=&pageNumber=0&pageSize=4");
     req.flush(enemiesMock);
   });
 
   it('should get an enemy', () => {
-    let name = "Nito";
+    let name = "Bell-Gargoyle";
     service.getEnemy(name).subscribe((res) => {
       expect(res).toBeTruthy();
       expect(res).toBe(enemyMock);
     }); 
     //  http://localhost:8081/api/enemies/Bell-Gargoyle
-    req = httpTestingController.expectOne("");
+    req = httpTestingController.expectOne("http://localhost:test/api/enemies/Bell-Gargoyle");
     req.flush(enemyMock);
   });
 });

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Config } from 'protractor';
+import { Config } from 'src/app/models/config.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
