@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { enemiesMock } from '../mocks/mock-enemies';
+import { enemyMock } from '../mocks/mock-enemy';
 
 import { EnemyApiService } from './enemy-api.service';
 
@@ -31,19 +33,21 @@ describe('EnemyApiService', () => {
     let pageSize = 4;
     service.getAllEnemies(search, pageNumber, pageSize).subscribe((res) => {
       expect(res).toBeTruthy();
+      expect(res).toBe(enemiesMock);
     }); 
     //  http://localhost:8081/api/enemies?search=G&pageNumber=0&pageSize=4
     req = httpTestingController.expectOne("");
-    req.flush("");
+    req.flush(enemiesMock);
   });
 
   it('should get an enemy', () => {
     let name = "Nito";
     service.getEnemy(name).subscribe((res) => {
       expect(res).toBeTruthy();
+      expect(res).toBe(enemyMock);
     }); 
     //  http://localhost:8081/api/enemies/Bell-Gargoyle
     req = httpTestingController.expectOne("");
-    req.flush("");
+    req.flush(enemyMock);
   });
 });
