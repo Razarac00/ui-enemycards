@@ -1,7 +1,7 @@
 import { EnemyElement } from "./EnemyElement";
 
 export interface Enemy {
-    id: number;
+    id: any;
     name: string;
     weaknesses: EnemyElement[];
     resistances: EnemyElement[];
