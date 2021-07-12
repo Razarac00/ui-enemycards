@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { enemiesMock } from '../mocks/mock-enemies';
 import { configServiceMock } from '../mocks/mock-configservice';
 import { enemyMock } from '../mocks/mock-enemy';
@@ -29,7 +29,7 @@ describe('EnemyApiService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get all enemies', () => {
+  it('should get all enemies', fakeAsync(() => {
     let search = "";
     let pageNumber = 0;
     let pageSize = 4;
@@ -42,9 +42,9 @@ describe('EnemyApiService', () => {
     //  http://localhost:8081/api/enemies?search=G&pageNumber=0&pageSize=4
     req = httpTestingController.expectOne("http://localhost:test/api/enemies?search=&pageNumber=0&pageSize=4");
     req.flush(enemiesMock);
-  });
+  }));
 
-  it('should get an enemy', () => {
+  it('should get an enemy', fakeAsync(() => {
     let name = "Bell-Gargoyle";
     service.getEnemy(name).subscribe((res) => {
       expect(res).toBeTruthy();
@@ -54,5 +54,5 @@ describe('EnemyApiService', () => {
     //  http://localhost:8081/api/enemies/Bell-Gargoyle
     req = httpTestingController.expectOne("http://localhost:test/api/enemies/Bell-Gargoyle");
     req.flush(enemyMock);
-  });
+  }));
 });
